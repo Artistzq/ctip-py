@@ -1,6 +1,7 @@
 import time
 import base64
 import io
+from typing import AnyStr
 from PIL import Image, ImageDraw
 
 from fastapi import UploadFile, File
@@ -11,12 +12,12 @@ from ..models.OdArgs import ODArgs
 class DetectService:
     
     def detect(self, img_file: UploadFile, args: ODArgs):
-        
-        # 读取上传的图像数据
-        image_bytes = img_file.file.read()
+        return self.detect_from_bytes(img_file.file.read(), args)
 
+    def detect_from_bytes(self, img_bytes: AnyStr, args: ODArgs):
+    
         # 将图像转换为PIL对象
-        image = Image.open(io.BytesIO(image_bytes))
+        image = Image.open(io.BytesIO(img_bytes))
 
         # 在图像上画一个圆圈
         draw = ImageDraw.Draw(image)

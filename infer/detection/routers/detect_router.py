@@ -1,4 +1,5 @@
 import traceback
+from typing import AnyStr
 from fastapi import File, Form, UploadFile
 from pydantic import BaseModel, parse_obj_as
 import time
@@ -15,6 +16,15 @@ async def yolo_od(fileb: UploadFile, args: str = Form(...)):
     try:
         args = parse_obj_as(ODArgs, json.loads(args))
         return detectService.detect(fileb, args)
+    except:
+        traceback.print_exc()
+        return -1
+
+@router.post("/yolov8_bytes")
+async def yolo_od_bytes(bytes: AnyStr, args: str=Form(...)):
+    try:
+        args = parse_obj_as(ODArgs, json.loads(args))
+        return detectService.detect_from_bytes(bytes, args)
     except:
         traceback.print_exc()
         return -1
