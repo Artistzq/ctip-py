@@ -1,5 +1,6 @@
 from nacos import NacosClient
 import threading
+import time
 
 
 class NacosRegister:
@@ -13,7 +14,7 @@ class NacosRegister:
             print("服务 {} 已注册到 {}:{}，无需重复".format(service_name, ip, port))
             return
         
-        client.add_naming_instance(service_name, ip, port)
+        self.client.add_naming_instance(service_name, ip, port)
         self.pool.add(service_name + ip + str(port))
         thread = threading.Thread(target=self.heartbeat, kwargs={"service_name": service_name, "ip": ip, "port": port}, name=service_name + "")
         thread.start()

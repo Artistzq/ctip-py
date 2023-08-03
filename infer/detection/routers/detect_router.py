@@ -1,22 +1,20 @@
 import traceback
 from fastapi import File, Form, UploadFile
+from pydantic import BaseModel, parse_obj_as
+import time
+import json
+
 from web.router_registry import routerRegistry
 from ..services.detect_service import detectService
-import time
+from ..models.OdArgs import ODArgs
 
 router = routerRegistry.new_router("/infer/od")
 
 @router.post("/yolov8")
-async def yolo_od(fileb: UploadFile = File(...), token: str = Form(...)):
+async def yolo_od(fileb: UploadFile, args: str = Form(...)):
     try:
-        result = detectService.detect(fileb)
-        print(result)
-        return {
-            "token": token,
-            "filename": fileb.filename,
-            "content_type": fileb.content_type,
-            "result": result
-        }
+        args = parse_obj_as(ODArgs, json.loads(args))
+        return detectService.detect(fileb, args)
     except:
         traceback.print_exc()
         return -1
