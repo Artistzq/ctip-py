@@ -1,0 +1,1 @@
+from .routers import text2img_router
