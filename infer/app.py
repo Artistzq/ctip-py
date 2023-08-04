@@ -10,7 +10,7 @@ import to_img # 注入
 import config
 from util.nacos_util import nacosRegister
 from web.router_registry import routerRegistry
-from infer.to_img.services.text2img_consumer import start_kafka_consumers, stop_kafka_consumers
+from infer.to_img.mq.text2img_consumer import start_kafka_consumers, stop_kafka_consumers
 
 app = FastAPI()
 # 注册路由

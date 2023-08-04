@@ -5,7 +5,7 @@ ip = host
 
 class Kafka:
     bootstrap_servers = 'localhost:9092'
-    topic = 'task_text_to_img'
+    topic = 'text_to_img_export'
     num_threads = 1  # 设置线程数量
 
 kafka = Kafka()
