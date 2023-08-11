@@ -24,7 +24,7 @@ class NacosRegister:
             # 向Nacos发送心跳
             self.client.send_heartbeat(service_name, ip, port)
             time.sleep(5)  # 每隔5秒发送一次心跳
-            print("heat beat.")
+            # print("heat beat.")
             
     def register_new_service_from_config(self, config):
         self.register_new_service(config.service_name, config.ip, config.port)

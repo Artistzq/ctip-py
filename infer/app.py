@@ -18,7 +18,7 @@ for prefix, router in routerRegistry.routers.items():
     print(prefix)
     app.include_router(router, prefix=prefix)
 # 注册服务
-# nacosRegister.register_new_service_from_config(config)
+nacosRegister.register_new_service_from_config(config)
 
 @app.on_event("startup")
 async def startup_event():
